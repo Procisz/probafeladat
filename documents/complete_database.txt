@@ -1,0 +1,46 @@
+/** This is the default sql database. */
+
+CREATE DATABASE `probafeladat`;
+
+
+CREATE TABLE `probafeladat`.`users` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+	`email` VARCHAR(150) NOT NULL,
+	`password` VARCHAR(150) NOT NULL,
+	`delivery_code` VARCHAR(8) NOT NULL,
+	`isactive` TINYINT NOT NULL,
+	PRIMARY KEY (`id`)
+);
+INSERT INTO `probafeladat`.`users` (`name`, `email`, `password`, `delivery_code`, `isactive`)
+VALUES ('Ago', 'agostonzajkas@gmailcom', '123', 'AAAA1111', '1');
+
+
+CREATE TABLE `probafeladat`.`statuses` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`short_name` VARCHAR(10) NOT NULL,
+	`long_name` VARCHAR(100) NOT NULL,
+	`description` VARCHAR(150) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+INSERT INTO `probafeladat`.`statuses` (`short_name`, `long_name`, `description`)
+VALUES
+('WfPU', 'Waiting for Pick Up', 'Csomag a feladónál. Futárra vár.'),
+('PU', 'Picked Up', 'Csomag a gutárnál. Depóba vár.'),
+('ID', 'In Depot', 'Csomag a depóban van. Kiszállításra vár.'),
+('OD', 'On Delivery', 'Kiszállítás alatt. Célba tart.'),
+('DD', 'Delivered', 'Csomag kiszállítva.');
+
+
+CREATE TABLE `probafeladat`.`products` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(10) NOT NULL,
+	`description` VARCHAR(150) NOT NULL,
+	`isactive` TINYINT NOT NULL,
+	PRIMARY KEY (`id`)
+);
+INSERT INTO `probafeladat`.`products` (`name`, `description`, `isactive`)
+VALUES
+('Product1', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.', '1'),
+('Product2', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.', '1'),
+('Product3', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.', '1');
