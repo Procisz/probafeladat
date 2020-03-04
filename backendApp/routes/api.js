@@ -9,7 +9,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/angular", async (req, res, next) => {
-  let users = await dataBase.read();
+  let users = await dataBase.readRecord();
   res.json(users);
 });
 
