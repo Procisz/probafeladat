@@ -18,55 +18,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Ago</td>
-      <td>agostonzajkas@gmail.com</td>
-      <td>123</td>
-      <td>AAAA1111</td>
-      <td>1</td>
-      <td>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-warning">Szerkesztés</button>
-          <button type="button" class="btn btn-danger">Törlés</button>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">1</th>
-      <td>Ago</td>
-      <td>agostonzajkas@gmail.com</td>
-      <td>123</td>
-      <td>AAAA1111</td>
-      <td>1</td>
-      <td>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-warning">Szerkesztés</button>
-          <button type="button" class="btn btn-danger">Törlés</button>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">1</th>
-      <td>Ago</td>
-      <td>agostonzajkas@gmail.com</td>
-      <td>123</td>
-      <td>AAAA1111</td>
-      <td>1</td>
-      <td>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-warning">Szerkesztés</button>
-          <button type="button" class="btn btn-danger">Törlés</button>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">1</th>
-      <td>Ago</td>
-      <td>agostonzajkas@gmail.com</td>
-      <td>123</td>
-      <td>AAAA1111</td>
-      <td>1</td>
+    <tr *ngFor="let user of usersList$ | async">
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.password }}</td>
+      <td>{{ user.ordercode }}</td>
+      <td>{{ user.isactive }}</td>
       <td>
         <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-warning">Szerkesztés</button>

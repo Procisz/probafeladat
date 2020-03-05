@@ -13,7 +13,13 @@ CREATE TABLE `probafeladat`.`users` (
 	PRIMARY KEY (`id`)
 );
 INSERT INTO `probafeladat`.`users` (`name`, `email`, `password`, `ordercode`, `isactive`)
-VALUES ('Ago', 'agostonzajkas@gmailcom', '123', 'AAAA1111', '1');
+VALUES
+('Pop Simon', 'simon.pop@gmailcom', 'string password', 'AAAA1111', '1'),
+('Futaky Bátor', 'bator.futaky@gmailcom', 'string password', 'BBBB2222', '1'),
+('Cserepes Virág', 'virag.cserepes@gmailcom', 'string password', 'CCCC3333', '1'),
+('Fekete Barna', 'barna.fekete@gmailcom', 'string password', 'DDDD4444', '1'),
+('Teszt Elek', 'elek.teszt@gmailcom', 'string password', 'FFFF5555', '1')
+;
 
 
 CREATE TABLE `probafeladat`.`statuses` (

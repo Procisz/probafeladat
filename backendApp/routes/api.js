@@ -8,7 +8,7 @@ router.get("/", (req, res, next) => {
   res.send("Api works.");
 });
 
-router.get("/angular", async (req, res, next) => {
+router.get("/users", async (req, res, next) => {
   let users = await dataBase.readRecord();
   res.json(users);
 });

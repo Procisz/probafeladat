@@ -10,6 +10,7 @@ import { ProductsComponent } from "./components/products/products.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { StatusesComponent } from "./components/statuses/statuses.component";
 import { OrdersComponent } from "./components/orders/orders.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { OrdersComponent } from "./components/orders/orders.component";
     StatusesComponent,
     OrdersComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
 })
