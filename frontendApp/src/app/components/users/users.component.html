@@ -1,7 +1,7 @@
 <button
   class="btn btn-block btn-outline-success mb-3"
   data-toggle="modal"
-  data-target=".bd-example-modal-xl"
+  data-target=".my-add-user-modal"
 >
   Új felhasználó hozzáadása
 </button>
@@ -27,7 +27,14 @@
       <td>{{ user.isactive }}</td>
       <td>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-warning">Szerkesztés</button>
+          <button
+            type="button"
+            class="btn btn-warning"
+            data-toggle="modal"
+            data-target=".my-edit-user-modal"
+          >
+            Szerkesztés
+          </button>
           <button type="button" class="btn btn-danger">Törlés</button>
         </div>
       </td>
@@ -37,7 +44,7 @@
 
 <!-- Új felhasználó hozzáadása modal -->
 <div
-  class="modal fade bd-example-modal-xl my-add-user-modal"
+  class="modal fade my-add-user-modal"
   tabindex="-1"
   role="dialog"
   aria-labelledby="myExtraLargeModalLabel"
@@ -45,6 +52,7 @@
 >
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
+      <h1 class="text-center mb-3">Új felhasználó hozzáadása</h1>
       <form>
         <div class="form-row">
           <div class="form-group col-md-6">
@@ -78,6 +86,84 @@
               type="password"
               class="form-control"
               placeholder="Jelszó még egyszer *"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isActive"
+              checked
+            />
+            <label class="form-check-label" for="gridCheck">
+              Aktív
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-block btn-outline-success">
+          Mentés
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Felhasználó szerkesztése modal -->
+<div
+  class="modal fade my-edit-user-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myExtraLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <h1 class="text-center mb-3">Felhasználó szerkesztése</h1>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Név"
+              required
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Régi jelszó"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Új jelszó"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Új jelszó még egyszer"
               required
             />
           </div>
