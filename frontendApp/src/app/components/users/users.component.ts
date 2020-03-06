@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
-import { UsersService } from "src/app/services/users.service";
+import { Observable, BehaviorSubject } from "rxjs";
 import { User } from "src/app/classes/user";
+import { MainService } from "src/app/services/main.service";
 
 @Component({
   selector: "app-users",
@@ -9,17 +9,30 @@ import { User } from "src/app/classes/user";
   styleUrls: ["./users.component.css"]
 })
 export class UsersComponent implements OnInit {
-  usersList$: Observable<User[]> = this.usersService.getUsers();
-  usersList: User[] = [];
+  usersList$: BehaviorSubject<User[]> = this.mainService.userList;
+  // usersList: User[] = [];
 
-  constructor(private usersService: UsersService) {
+  // usersList$: Observable<User[]> = this.usersService.getUsers();
+  // usersList: User[] = [];
+
+  constructor(private mainService: MainService) {
     try {
-      usersService.getUsers().subscribe(users => {
-        this.usersList = users;
-      });
+      this.mainService.readTableByQuery("users", {});
+      console.log(this.usersList$);
     } catch (err) {
       throw err;
     }
+    // try {
+    //   usersService.getUsers().subscribe(users => {
+    //     this.usersList = users;
+    //   });
+    // } catch (err) {
+    //   throw err;
+    // }
+  }
+
+  onDelete(id: number): void {
+    this.mainService.deleteRecordByQuery("users", { id: id });
   }
 
   ngOnInit(): void {}

@@ -9,16 +9,15 @@ CREATE TABLE `probafeladat`.`users` (
 	`email` VARCHAR(150) NOT NULL,
 	`password` VARCHAR(150) NOT NULL,
 	`ordercode` VARCHAR(8) NOT NULL,
-	`isactive` TINYINT NOT NULL,
 	PRIMARY KEY (`id`)
 );
-INSERT INTO `probafeladat`.`users` (`name`, `email`, `password`, `ordercode`, `isactive`)
+INSERT INTO `probafeladat`.`users` (`name`, `email`, `password`, `ordercode`)
 VALUES
-('Pop Simon', 'simon.pop@gmailcom', 'string password', 'AAAA1111', '1'),
-('Futaky Bátor', 'bator.futaky@gmailcom', 'string password', 'BBBB2222', '1'),
-('Cserepes Virág', 'virag.cserepes@gmailcom', 'string password', 'CCCC3333', '1'),
-('Fekete Barna', 'barna.fekete@gmailcom', 'string password', 'DDDD4444', '1'),
-('Teszt Elek', 'elek.teszt@gmailcom', 'string password', 'FFFF5555', '1')
+('Pop Simon', 'simon.pop@gmailcom', 'unhashed password', 'AAAA1111'),
+('Futaky Bátor', 'bator.futaky@gmailcom', 'unhashed password', 'BBBB2222'),
+('Cserepes Virág', 'virag.cserepes@gmailcom', 'unhashed password', 'CCCC3333'),
+('Fekete Barna', 'barna.fekete@gmailcom', 'unhashed password', 'DDDD4444'),
+('Teszt Elek', 'elek.teszt@gmailcom', 'unhashed password', 'FFFF5555')
 ;
 
 
@@ -42,14 +41,13 @@ CREATE TABLE `probafeladat`.`products` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50) NOT NULL,
 	`description` VARCHAR(150) NOT NULL,
-	`isactive` TINYINT NOT NULL,
 	PRIMARY KEY (`id`)
 );
-INSERT INTO `probafeladat`.`products` (`name`, `description`, `isactive`)
+INSERT INTO `probafeladat`.`products` (`name`, `description`)
 VALUES
-('Product1', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.', '1'),
-('Product2', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.', '1'),
-('Product3', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.', '1');
+('Product1', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.'),
+('Product2', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.'),
+('Product3', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.');
 
 
 CREATE TABLE `probafeladat`.`orders` (
@@ -58,9 +56,8 @@ CREATE TABLE `probafeladat`.`orders` (
 	`useremail` VARCHAR(150) NOT NULL,
 	`productname` VARCHAR(50) NOT NULL,
 	`ordercode` VARCHAR(8) NOT NULL,
-	`isactive` TINYINT NOT NULL,
 	PRIMARY KEY (`id`)
 );
-INSERT INTO `probafeladat`.`orders` (`username`, `useremail`, `productname`, `ordercode`, `isactive`)
+INSERT INTO `probafeladat`.`orders` (`username`, `useremail`, `productname`, `ordercode`)
 VALUES
-('Ago', 'agostonzajkas@gmail.com', 'Product1', 'AAAA1111', '1');
+('Ago', 'agostonzajkas@gmail.com', 'Product1', 'AAAA1111');

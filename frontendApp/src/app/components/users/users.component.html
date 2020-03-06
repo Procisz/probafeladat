@@ -35,7 +35,13 @@
           >
             Szerkesztés
           </button>
-          <button type="button" class="btn btn-danger">Törlés</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="onDelete(user.id)"
+          >
+            Törlés
+          </button>
         </div>
       </td>
     </tr>
