@@ -28,6 +28,7 @@
       <td>
         <div class="btn-group" role="group" aria-label="Basic example">
           <button
+            (click)="onEditUser(user)"
             type="button"
             class="btn btn-warning"
             data-toggle="modal"
@@ -128,70 +129,80 @@
 >
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
-      <h1 class="text-center mb-3">Felhasználó szerkesztése</h1>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Név"
-              required
-            />
+      <div *ngIf="editedUser">
+        <form (ngSubmit)="onSubmit($event)">
+          <h1 class="text-center mb-3">{{ editedUser.name }} szerkesztése</h1>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Jelenlegi név: {{ editedUser.name }}"
+                name="name"
+                required
+                [(ngModel)]="newUser.name"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Jelenlegi email: {{ editedUser.email }}"
+                name="email"
+                required
+                [(ngModel)]="newUser.email"
+              />
+            </div>
           </div>
-          <div class="form-group col-md-6">
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Email"
-              required
-            />
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Régi jelszó"
+                name="oldPassword"
+                required
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Új jelszó"
+                name="newPassword"
+                required
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Új jelszó még egyszer"
+                name="confirmNewPassword"
+                required
+                [(ngModel)]="newUser.password"
+              />
+            </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <input
-              type="password"
-              class="form-control"
-              placeholder="Régi jelszó"
-              required
-            />
-          </div>
-          <div class="form-group col-md-4">
-            <input
-              type="password"
-              class="form-control"
-              placeholder="Új jelszó"
-              required
-            />
-          </div>
-          <div class="form-group col-md-4">
-            <input
-              type="password"
-              class="form-control"
-              placeholder="Új jelszó még egyszer"
-              required
-            />
-          </div>
-        </div>
 
-        <div class="form-group">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="isActive"
-              checked
-            />
-            <label class="form-check-label" for="gridCheck">
-              Aktív
-            </label>
+          <div class="form-group">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="isActive"
+                checked
+              />
+              <label class="form-check-label" for="gridCheck">
+                Aktív
+              </label>
+            </div>
           </div>
-        </div>
-        <button type="submit" class="btn btn-block btn-outline-success">
-          Mentés
-        </button>
-      </form>
+          <button type="submit" class="btn btn-block btn-outline-success">
+            Mentés
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

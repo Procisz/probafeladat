@@ -11,6 +11,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { StatusesComponent } from "./components/statuses/statuses.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,13 @@ import { HttpClientModule } from "@angular/common/http";
     StatusesComponent,
     OrdersComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    FormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
