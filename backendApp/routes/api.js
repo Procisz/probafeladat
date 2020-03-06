@@ -19,14 +19,16 @@ router.get("/angular", async (req, res) => {
 
 /** POST requests at http://localhost:3000/tablename */
 router.post("/:table", async (req, res) => {
+  console.log("req.params.table: ", req.params.table);
+  console.log("req.body: ", req.body);
   res.json(await database.createRecord(req.params.table, req.body));
 });
 
 /** GET requests at http://localhost:3000/api/tablename/querystring */
 router.get("/:table", async (req, res) => {
   res.json(await database.readRecord(req.params.table, req.query));
-  console.log("req.params.table: ", req.params.table);
-  console.log("req.query: ", req.query);
+  // console.log("req.params.table: ", req.params.table);
+  // console.log("req.query: ", req.query);
 });
 
 /** Gets a specific product from the database, based on seo property. */

@@ -3,6 +3,6 @@ export class User {
   name: string;
   email: string;
   password: string;
-  orderCode: string;
+  ordercode: string;
   isActive: number;
 }

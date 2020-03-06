@@ -10,7 +10,7 @@ module.exports = class ListGenerator {
    */
   getFieldNames(data) {
     this._generateFieldNames(data);
-    console.log(this.list);
+    console.log("Record Names: ", this.list);
     return this.list;
   }
 
@@ -21,7 +21,7 @@ module.exports = class ListGenerator {
    */
   getFieldValues(data) {
     this._generateFieldValues(data);
-    console.log(this.list);
+    console.log("Record Values: ", this.list);
     return this.list;
   }
 
@@ -49,7 +49,8 @@ module.exports = class ListGenerator {
         if (this.list !== "") {
           this.list = this.list.concat(", ");
         }
-        this.list = this.list.concat(`SHA1(${this._apostropheByType(key)})`);
+        // this.list = this.list.concat(`SHA1(${this._apostropheByType(key)})`);
+        this.list = this.list.concat(this._apostropheByType(key));
       } else {
         if (this.list !== "") {
           this.list = this.list.concat(", ");
