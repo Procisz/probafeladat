@@ -45,10 +45,10 @@ export class ProductsComponent implements OnInit {
       selectCount: "users.ordercode",
       ordercode: "BBBB2222"
     });
+    if (this.orderCodeFromDatabase[0].ordercode == "BBBB2222") {
+      console.log("Match");
+    }
 
-    console.log(
-      "orderCodesFromDatabase: ",
-      this.orderCodeFromDatabase[0].result
-    );
+    console.log("orderCodesFromDatabase: ", this.orderCodeFromDatabase);
   }
 }
