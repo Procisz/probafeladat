@@ -10,13 +10,14 @@ import { Router } from "@angular/router";
   styleUrls: ["./users.component.css"]
 })
 export class UsersComponent implements OnInit {
-  usersList$: BehaviorSubject<User[]> = this.mainService.userList;
+  usersList$: BehaviorSubject<User[]> = this.mainService.usersList;
   editingUser: User;
   editedUser: User = new User();
   newUser: User = new User();
   characters: Array<string> = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
-  randomOrderCode: string;
+  randomOrderCode: string = "BBBB2222";
   orderCodeFromDatabase;
+  usersOrderCodeFiled;
 
   constructor(private mainService: MainService, private router: Router) {
     try {
@@ -25,40 +26,14 @@ export class UsersComponent implements OnInit {
     } catch (err) {
       throw err;
     }
+    this.newUser.ordercode == "CCCC3333";
   }
-
-  onEditUser(user: User) {
-    try {
-      this.editingUser = user;
-    } catch (error) {
-      error;
-    }
-  }
-
-  onCreateOrderCode(ev: Event) {}
 
   ngOnInit(): void {}
 
+  /** Create a new user */
   onCreateUser(ev: Event): void {
-    /**Create random Order Code */
-    this.randomOrderCode = "CCCC3333";
-    // this.randomOrderCode = [...Array(8)]
-    //   .map(i => this.characters[(Math.random() * this.characters.length) | 0])
-    //   .join(``);
-    // console.log("Random ordercode", this.randomOrderCode);
-
-    /**Check generated ordercode to any match from database */
-    this.orderCodeFromDatabase = this.mainService.readTableByQuery("users", {
-      ordercode: this.randomOrderCode
-    });
-    console.log("orderCodeFromDatabase: ", this.orderCodeFromDatabase);
-    // if (this.randomOrderCode == this.orderCodeFromDatabase.ordercode) {
-    //   console.log("Egyezik");
-    // }
-
     try {
-      this.newUser.ordercode == "CCCC3333";
-      console.log("this.newUser: ", this.newUser);
       // ev.preventDefault();
       this.mainService.createRecord("users", this.newUser).subscribe(() => {
         this.router.navigateByUrl("/users");
@@ -68,6 +43,16 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  /** Edit an existing user */
+  onEditUser(user: User) {
+    try {
+      this.editingUser = user;
+    } catch (error) {
+      error;
+    }
+  }
+
+  /** Edit an existing user */
   onUpdateUser(ev: Event): void {
     try {
       // ev.preventDefault();
@@ -83,6 +68,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  /** Delete an existing user */
   onDeleteUser(id: number): void {
     try {
       this.mainService.deleteRecordByQuery("users", { id: id });

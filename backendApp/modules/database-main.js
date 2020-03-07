@@ -45,9 +45,11 @@ module.exports = class BetagDB {
    */
   async readRecord(tableName, queryObject = {}) {
     try {
-      return await this.connection.query(
+      let result = await this.connection.query(
         queryGenerator.getQueryString(tableName, queryObject)
       );
+      console.log("SQL lekérdezés eredménye:", result);
+      return result;
     } catch (error) {
       throw error;
     }

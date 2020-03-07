@@ -1,14 +1,14 @@
-/** This is the default sql database. */
+/** This is the default sql database, just copy that. */
 
 CREATE DATABASE `probafeladat`;
 
 
 CREATE TABLE `probafeladat`.`users` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(100) NOT NULL,
-	`email` VARCHAR(150) NOT NULL,
-	`password` VARCHAR(150) NOT NULL,
-	`ordercode` VARCHAR(8) NOT NULL,
+	`name` VARCHAR(100) NOT NULL DEFAULT 'Nincs megadva név.',
+	`email` VARCHAR(150) NOT NULL DEFAULT 'Nincs megadva email.',
+	`password` VARCHAR(150) NOT NULL DEFAULT 'Nincs megadva jelszó.',
+	`ordercode` VARCHAR(50) NOT NULL DEFAULT 'Nincs megadva rendelési azonosító.',
 	PRIMARY KEY (`id`)
 );
 INSERT INTO `probafeladat`.`users` (`name`, `email`, `password`, `ordercode`)
@@ -17,15 +17,14 @@ VALUES
 ('Futaky Bátor', 'bator.futaky@gmailcom', 'unhashed password', 'BBBB2222'),
 ('Cserepes Virág', 'virag.cserepes@gmailcom', 'unhashed password', 'CCCC3333'),
 ('Fekete Barna', 'barna.fekete@gmailcom', 'unhashed password', 'DDDD4444'),
-('Teszt Elek', 'elek.teszt@gmailcom', 'unhashed password', 'FFFF5555')
-;
+('Teszt Elek', 'elek.teszt@gmailcom', 'unhashed password', 'FFFF5555');
 
 
 CREATE TABLE `probafeladat`.`statuses` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`shortname` VARCHAR(50) NOT NULL,
-	`longname` VARCHAR(100) NOT NULL,
-	`description` VARCHAR(150) NOT NULL,
+	`shortname` VARCHAR(50) NOT NULL DEFAULT 'Nincs megadva rövid név.',
+	`longname` VARCHAR(100) NOT NULL DEFAULT 'Nincs megadva hosszú név.',
+	`description` VARCHAR(150) NOT NULL DEFAULT 'Nincs megadva leírás.',
 	PRIMARY KEY (`id`)
 );
 INSERT INTO `probafeladat`.`statuses` (`shortname`, `longname`, `description`)
@@ -39,25 +38,32 @@ VALUES
 
 CREATE TABLE `probafeladat`.`products` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL,
-	`description` VARCHAR(150) NOT NULL,
+	`name` VARCHAR(50) NOT NULL DEFAULT 'Nincs megadva név.',
+	`description` VARCHAR(150) NOT NULL DEFAULT 'Nincs megadva leírás.',
 	PRIMARY KEY (`id`)
 );
 INSERT INTO `probafeladat`.`products` (`name`, `description`)
 VALUES
 ('Product1', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.'),
 ('Product2', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.'),
-('Product3', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.');
+('Product3', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.'),
+('Product4', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.'),
+('Product5', 'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet.');
 
 
 CREATE TABLE `probafeladat`.`orders` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`username` VARCHAR(50) NOT NULL,
-	`useremail` VARCHAR(150) NOT NULL,
-	`productname` VARCHAR(50) NOT NULL,
-	`ordercode` VARCHAR(8) NOT NULL,
+	`username` VARCHAR(50) NOT NULL DEFAULT 'Nincs megadva név.',
+	`useremail` VARCHAR(150) NOT NULL DEFAULT 'Nincs megadva email.',
+	`productname` VARCHAR(50) NOT NULL DEFAULT 'Nincs megadva leírás.',
+	`ordercode` VARCHAR(50) NOT NULL DEFAULT 'Nincs megadva rendelési azonosító.',
+	`orderstatus` int NOT NULL,
 	PRIMARY KEY (`id`)
 );
-INSERT INTO `probafeladat`.`orders` (`username`, `useremail`, `productname`, `ordercode`)
+INSERT INTO `probafeladat`.`orders` (`username`, `useremail`, `productname`, `ordercode`, orderstatus)
 VALUES
-('Ago', 'agostonzajkas@gmail.com', 'Product1', 'AAAA1111');
+('Felhasználó 1', 'agostonzajkas@gmail.com', 'Product1', 'AAAA1111', 1),
+('Felhasználó 2', 'agostonzajkas@gmail.com', 'Product2', 'BBBB2222', 2),
+('Felhasználó 3', 'agostonzajkas@gmail.com', 'Product3', 'CCCC3333', 3),
+('Felhasználó 4', 'agostonzajkas@gmail.com', 'Product4', 'DDDD4444', 4),
+('Felhasználó 5', 'agostonzajkas@gmail.com', 'Product5', 'EEEE5555', 5);

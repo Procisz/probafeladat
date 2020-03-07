@@ -1,7 +1,6 @@
 module.exports = class QueryGenerator {
-
   constructor() {
-    this.queryString = '';
+    this.queryString = "";
   }
 
   getQueryString(tableName, queryObject) {
@@ -14,7 +13,7 @@ module.exports = class QueryGenerator {
     this._setMainTable(tableName);
     this._setQuery(queryObject);
     this._setKeys(queryObject);
-    this._setSelect();
+    this._setSelects();
     this._setFrom();
     this._setWhere();
     this._setGroupBy();
@@ -25,7 +24,7 @@ module.exports = class QueryGenerator {
   }
 
   _clearPreviousQuery() {
-    this.queryString = '';
+    this.queryString = "";
   }
 
   _setMainTable(tableName) {
@@ -38,42 +37,51 @@ module.exports = class QueryGenerator {
 
   _setKeys(queryObject) {
     this.whereKeys = Object.keys(queryObject);
-    if (this.whereKeys.includes('select')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('select'), 1);
+    if (this.whereKeys.includes("selectCount")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("selectCount"), 1);
+    } else if (this.whereKeys.includes("select")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("select"), 1);
     }
-    if (this.whereKeys.includes('from')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('from'), 1);
+    if (this.whereKeys.includes("from")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("from"), 1);
     }
-    if (this.whereKeys.includes('groupBy')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('groupBy'), 1);
+    if (this.whereKeys.includes("groupBy")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("groupBy"), 1);
     }
-    if (this.whereKeys.includes('having')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('having'), 1);
+    if (this.whereKeys.includes("having")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("having"), 1);
     }
-    if (this.whereKeys.includes('orderBy')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('orderBy'), 1)
+    if (this.whereKeys.includes("orderBy")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("orderBy"), 1);
     }
-    if (this.whereKeys.includes('limit')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('limit'), 1);
+    if (this.whereKeys.includes("limit")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("limit"), 1);
     }
-    if (this.whereKeys.includes('betweenColumn')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('betweenColumn'), 1);
+    if (this.whereKeys.includes("betweenColumn")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("betweenColumn"), 1);
     }
-    if (this.whereKeys.includes('betweenValues')) {
-      this.whereKeys.splice(this.whereKeys.indexOf('betweenValues'), 1);
+    if (this.whereKeys.includes("betweenValues")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("betweenValues"), 1);
     }
+    // console.log("whereKeys: ", this.whereKeys);
   }
 
   _apostropheByType(value) {
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       return `'${value}'`;
     } else {
       return value;
     }
   }
 
-  _setSelect() {
-    if (this.query.select) {
+  _setSelects() {
+    if (this.query.selectCount) {
+      // console.log("Itt van.");
+      // console.log("this.query.selectCount: ", this.query.selectCount);
+      this.queryString = this.queryString.concat(
+        `SELECT COUNT (${this.query.selectCount}) as result`
+      );
+    } else if (this.query.select) {
       this.queryString = this.queryString.concat(`SELECT ${this.query.select}`);
     } else {
       this.queryString = this.queryString.concat(`SELECT *`);
@@ -82,7 +90,9 @@ module.exports = class QueryGenerator {
 
   _setFrom() {
     if (this.query.from) {
-      this.queryString = this.queryString.concat(` FROM ${this.tableName} ${this.query.from}`);
+      this.queryString = this.queryString.concat(
+        ` FROM ${this.tableName} ${this.query.from}`
+      );
     } else {
       this.queryString = this.queryString.concat(` FROM ${this.tableName}`);
     }
@@ -98,9 +108,11 @@ module.exports = class QueryGenerator {
           ${key} = ${this._apostropheByType(this.query[key])} AND `);
       });
       if (this.query.betweenColumn && this.query.betweenValues) {
-        this.queryString = this.queryString.concat(` ${this.query.betweenColumn} BETWEEN ${this.query.betweenValues}`);
+        this.queryString = this.queryString.concat(
+          ` ${this.query.betweenColumn} BETWEEN ${this.query.betweenValues}`
+        );
       } else {
-        this.queryString = this.queryString.replace(/\sAND\s$/, '');
+        this.queryString = this.queryString.replace(/\sAND\s$/, "");
       }
     }
   }
@@ -115,24 +127,27 @@ module.exports = class QueryGenerator {
 
   _setHaving() {
     if (this.query.having) {
-      this.queryString = this.queryString.concat(` HAVING ${this.query.having}`);
+      this.queryString = this.queryString.concat(
+        ` HAVING ${this.query.having}`
+      );
     }
   }
 
   _setOrderBy() {
     if (this.query.orderBy) {
-      this.queryString = this.queryString.concat(` ORDER BY ${this.query.orderBy}`);
+      this.queryString = this.queryString.concat(
+        ` ORDER BY ${this.query.orderBy}`
+      );
     }
   }
 
   _setLimit() {
     if (this.query.limit) {
-      this.queryString = this.queryString.concat(` LIMIT ${this.query.limit}`)
+      this.queryString = this.queryString.concat(` LIMIT ${this.query.limit}`);
     }
   }
 
   _endQueryString() {
-    this.queryString = this.queryString.concat(';');
+    this.queryString = this.queryString.concat(";");
   }
-
-}
+};

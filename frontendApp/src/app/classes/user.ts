@@ -4,5 +4,5 @@ export class User {
   email: string;
   password: string;
   ordercode: string;
-  isActive: number;
+  isActive?: number;
 }

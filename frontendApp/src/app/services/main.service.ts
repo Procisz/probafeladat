@@ -3,96 +3,62 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { UrlConcatenatorService } from "./url-concatenator.service";
 import { User } from "../classes/user";
+import { Order } from "../classes/order";
+import { Product } from "../classes/product";
 
 @Injectable({
   providedIn: "root"
 })
 export class MainService {
+  /** Api link */
   restApiURL: string = "http://localhost:3000/api";
 
-  /** Prepare variables*/
-  orderList: BehaviorSubject<any> = new BehaviorSubject([]);
-  userList: BehaviorSubject<User[]> = new BehaviorSubject([]);
-  projectList: BehaviorSubject<any> = new BehaviorSubject([]);
-  basketList: BehaviorSubject<any> = new BehaviorSubject([]);
-  categoryList: BehaviorSubject<any> = new BehaviorSubject([]);
-  orderDetailsList: BehaviorSubject<any> = new BehaviorSubject([]);
-
-  order: BehaviorSubject<any> = new BehaviorSubject([]);
-  user: BehaviorSubject<any> = new BehaviorSubject([]);
-  project: BehaviorSubject<any> = new BehaviorSubject([]);
-  basket: BehaviorSubject<any> = new BehaviorSubject([]);
-  category: BehaviorSubject<any> = new BehaviorSubject([]);
+  /** Prepare */
+  users: BehaviorSubject<User[]> = new BehaviorSubject([]);
+  usersList: BehaviorSubject<User[]> = new BehaviorSubject([]);
+  orders: BehaviorSubject<Order[]> = new BehaviorSubject([]);
+  ordersList: BehaviorSubject<Order[]> = new BehaviorSubject([]);
+  products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
+  productsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
 
   constructor(
     private http: HttpClient,
     private urlConcatenator: UrlConcatenatorService
   ) {}
-  /**
-   * Creates a record from the given data.
-   * @param tableName Name of the database table.
-   * @param data Represents the data to be created.
-   * @returns Return with an observable.
-   */
+
+  /** Create in database */
   createRecord(tableName: string, data: Object): Observable<any> {
     return this.http.post(`${this.restApiURL}/${tableName}`, data);
   }
 
-  /**
-   * Gets given records meeting the conditions from the query.
-   * @param tableName Name of the database table.
-   * @param query Contains the parts of the url query as properites
-   * @returns Response observable containing the read data.
-   */
+  /** Read from database */
   readTableByQuery(tableName: string, query: Object): void {
     this.http
-      .get<User[]>(
+      .get<any>(
         `${this.restApiURL}/${tableName}/${this.urlConcatenator.getQueryString(
           query
         )}`
       )
       .forEach(data => {
-        if (tableName === "orders" && query.hasOwnProperty("id")) {
-          this.order.next(data[0]);
-        } else if (tableName === "orders") {
-          this.orderList.next(data);
-        }
         if (tableName === "users" && query.hasOwnProperty("id")) {
-          this.user.next(data[0]);
+          this.users.next(data[0]);
         } else if (tableName === "users") {
-          this.userList.next(data);
+          this.usersList.next(data);
         }
-        if (tableName === "baskets" && query.hasOwnProperty("id")) {
-          this.basket.next(data[0]);
-        } else if (tableName === "baskets") {
-          this.basketList.next(data);
+        if (tableName === "orders" && query.hasOwnProperty("id")) {
+          this.orders.next(data[0]);
+        } else if (tableName === "orders") {
+          this.ordersList.next(data);
         }
-        if (
-          tableName === "projects" &&
-          (query.hasOwnProperty("id") || query.hasOwnProperty("seo"))
-        ) {
-          this.project.next(data);
-        } else if (tableName === "projects") {
-          this.projectList.next(data);
-        }
-        if (tableName === "categories" && query.hasOwnProperty("id")) {
-          this.category.next(data[0]);
-        } else if (tableName === "categories") {
-          this.categoryList.next(data);
-        }
-        if (tableName === "orderdetails") {
-          this.orderDetailsList.next(data);
+        if (tableName === "products" && query.hasOwnProperty("id")) {
+          this.products.next(data[0]);
+        } else if (tableName === "products") {
+          this.productsList.next(data);
         }
       });
   }
 
-  /**
-   * Updates given records meeting the conditions from the query.
-   * @param tableName Name of the database table.
-   * @param query Contains the parts of the url query as properites
-   * @param data Represents the data to be created.
-   * @returns Response observable
-   */
+  /** Update in database */
   updateRecordByQuery(
     tableName: string,
     query: Object,
@@ -106,12 +72,7 @@ export class MainService {
     );
   }
 
-  /**
-   * Deletes given records meeting the conditions from the query.
-   * @param tableName Name of the database table.
-   * @param query Contains the parts of the url query as properites
-   * @returns Return with an observable
-   */
+  /** Delete from database */
   deleteRecordByQuery(tableName: string, query: Object): void {
     this.http
       .delete(

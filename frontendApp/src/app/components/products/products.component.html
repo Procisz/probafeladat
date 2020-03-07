@@ -1,1 +1,24 @@
-<p>products works!</p>
+<h1 class="text-center mt-2 mb-4">Termékek</h1>
+
+<table class="table table-striped table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Termék neve</th>
+      <th scope="col">Termék leírása</th>
+      <th scope="col">Műveletek</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of productsList$ | async">
+      <th scope="row">{{ product.id }}</th>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>
+        <button type="button" class="btn btn-success">
+          Megrendelés
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

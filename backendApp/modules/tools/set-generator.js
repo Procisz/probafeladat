@@ -1,7 +1,6 @@
 module.exports = class SetGenerator {
-
   constructor() {
-    this.setString = '';
+    this.setString = "";
   }
 
   /**
@@ -17,25 +16,26 @@ module.exports = class SetGenerator {
   _generateSetString(data) {
     this._emptyString();
     Object.keys(data).forEach((key, index) => {
-      if (key !== 'id' && key !== 'insdate') {
-        this.setString = this.setString.concat(`${key}=${this._apostropheByType(data[key])}`);
-        this.setString = this.setString.concat(', ');
+      if (key !== "id" && key !== "insdate") {
+        this.setString = this.setString.concat(
+          `${key}=${this._apostropheByType(data[key])}`
+        );
+        this.setString = this.setString.concat(", ");
       }
     });
-    this.setString = this.setString.replace(/,\s$/, '');
+    this.setString = this.setString.replace(/,\s$/, "");
   }
 
   _emptyString() {
-    this.setString = '';
+    this.setString = "";
   }
 
   _apostropheByType(value) {
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       return `'${value}'`;
     }
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
       return `${value}`;
     }
   }
-
 };
