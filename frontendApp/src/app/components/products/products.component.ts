@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  /** Create random Order Code */
+  /** Create random unique Order Code when "Megrendelés" button pressed */
   createOrderCode(product) {
     this.createdRandomOrderCode = [...Array(8)]
       .map(
@@ -38,27 +38,14 @@ export class ProductsComponent implements OnInit {
           ]
       )
       .join(``);
-    console.log("createdRandomOrderCode: ", this.createdRandomOrderCode);
-
-    /**Check generated ordercode to any match from database */
-    // this.orderCodeFromDatabase = this.mainService.readTableByQuery("users", {
-    //   // selectCount: "users.ordercode",
-    //   ordercode: "BBBB2222"
-    // });
-    // if (this.orderCodeFromDatabase[0].ordercode == "BBBB2222") {
-    //   console.log("Match");
-    // }
-    // console.log("orderCodesFromDatabase: ", this.orderCodeFromDatabase);
-    this.onOrder(product);
+    this.orderProduct(product);
   }
 
-  /** New record */
-  onOrder(product) {
-    /** Create new record in orders table*/
+  /** Create new record in orders table */
+  orderProduct(product) {
     try {
-      /** */
       this.newOrder.username = "Bejelentkezett felhasználó neve";
-      this.newOrder.useremail = "Bejelentkezett felhazsnáló emailja";
+      this.newOrder.useremail = "Bejelentkezett felhasználó emailja";
       this.newOrder.productname = product.name;
       this.newOrder.ordercode = this.createdRandomOrderCode;
       this.newOrder.orderstatus = 1;
@@ -67,7 +54,5 @@ export class ProductsComponent implements OnInit {
     } catch (error) {
       throw error;
     }
-
-    /** Create new record in users table*/
   }
 }

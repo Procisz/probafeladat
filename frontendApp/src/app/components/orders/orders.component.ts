@@ -23,11 +23,13 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /** Searching orders */
   onKey(event: KeyboardEvent) {
     this.searchedOrderCode = (event.target as HTMLInputElement).value;
 
     if (this.searchedOrderCode !== "") {
       try {
+        /** Read database with LIKE operator*/
         this.mainService.readTableByQuery("orders", {
           where: "ordercode",
           like: this.searchedOrderCode
@@ -37,6 +39,7 @@ export class OrdersComponent implements OnInit {
       }
     } else {
       try {
+        /** Read database */
         this.mainService.readTableByQuery("orders", {});
       } catch (err) {
         throw err;

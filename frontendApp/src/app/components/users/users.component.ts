@@ -22,7 +22,6 @@ export class UsersComponent implements OnInit {
   constructor(private mainService: MainService, private router: Router) {
     try {
       this.mainService.readTableByQuery("users", {});
-      // console.log(this.usersList$);
     } catch (err) {
       throw err;
     }
@@ -49,10 +48,10 @@ export class UsersComponent implements OnInit {
       this.editingUser = new User();
       this.editedUser = new User();
       this.editingUser = user;
+      this.onUpdateUser();
     } catch (error) {
       error;
     }
-    this.onUpdateUser();
   }
 
   /** Edit an existing user */

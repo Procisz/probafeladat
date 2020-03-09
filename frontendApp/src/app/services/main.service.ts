@@ -13,7 +13,7 @@ export class MainService {
   /** Api link */
   restApiURL: string = "http://localhost:3000/api";
 
-  /** Prepare */
+  /** Prepare Observables */
   users: BehaviorSubject<User[]> = new BehaviorSubject([]);
   usersList: BehaviorSubject<User[]> = new BehaviorSubject([]);
   orders: BehaviorSubject<Order[]> = new BehaviorSubject([]);
@@ -41,7 +41,7 @@ export class MainService {
           query
         )}`
       )
-      /** Get datas */
+      /** Get datas with or without id*/
       .forEach(data => {
         if (tableName === "users" && query.hasOwnProperty("id")) {
           this.users.next(data[0]);
@@ -53,7 +53,7 @@ export class MainService {
         } else if (tableName === "orders") {
           this.ordersList.next(data);
         }
-        /** Only for searching */
+        /** Only for search */
         if (tableName === "orders" && query.hasOwnProperty("id")) {
           this.searchedOrders.next(data[0]);
         } else if (tableName === "orders") {
