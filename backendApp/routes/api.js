@@ -5,10 +5,10 @@ const database = new Database();
 
 /** Check api link */
 router.get("/", async (req, res) => {
-  res.send("Api link works. Go to /api/angular.");
+  res.send("Api link works. Go to /api/angular for datas.");
 });
 
-/** Check database */
+/** Check database connection */
 router.get("/angular", async (req, res) => {
   let users = await database.readRecord("users", {});
   let orders = await database.readRecord("orders", {});

@@ -4,5 +4,6 @@ export class Order {
   useremail: string;
   productname: string;
   ordercode: string;
+  orderstatus: number;
   isActive?: number;
 }

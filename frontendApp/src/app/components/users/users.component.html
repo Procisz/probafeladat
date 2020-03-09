@@ -61,8 +61,8 @@
 >
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
-      <div *ngIf="newUser">
-        <form (click)="onCreateUser($event)">
+      <div>
+        <form>
           <h1 class="text-center mb-3">Új felhasználó hozzáadása</h1>
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -120,7 +120,11 @@
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-block btn-outline-success">
+          <button
+            type="submit"
+            class="btn btn-block btn-outline-success"
+            (click)="onCreateUser()"
+          >
             Mentés
           </button>
         </form>
@@ -140,7 +144,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div *ngIf="editingUser">
-        <form (click)="onUpdateUser($event)">
+        <form>
           <h1 class="text-center mb-3">{{ editingUser.name }} szerkesztése</h1>
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -208,7 +212,11 @@
               </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-block btn-outline-success">
+          <button
+            type="submit"
+            class="btn btn-block btn-outline-success"
+            (click)="onUpdateUser()"
+          >
             Mentés
           </button>
         </form>

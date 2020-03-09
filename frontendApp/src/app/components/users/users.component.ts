@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class UsersComponent implements OnInit {
   usersList$: BehaviorSubject<User[]> = this.mainService.usersList;
-  editingUser: User;
+  editingUser: User = new User();
   editedUser: User = new User();
   newUser: User = new User();
   characters: Array<string> = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
@@ -32,11 +32,11 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {}
 
   /** Create a new user */
-  onCreateUser(ev: Event): void {
+  onCreateUser(): void {
     try {
       // ev.preventDefault();
       this.mainService.createRecord("users", this.newUser).subscribe(() => {
-        this.router.navigateByUrl("/users");
+        this.mainService.readTableByQuery("users", {});
       });
     } catch (error) {
       throw error;
@@ -46,14 +46,17 @@ export class UsersComponent implements OnInit {
   /** Edit an existing user */
   onEditUser(user: User) {
     try {
+      this.editingUser = new User();
+      this.editedUser = new User();
       this.editingUser = user;
     } catch (error) {
       error;
     }
+    this.onUpdateUser();
   }
 
   /** Edit an existing user */
-  onUpdateUser(ev: Event): void {
+  onUpdateUser(): void {
     try {
       // ev.preventDefault();
       this.mainService
@@ -62,7 +65,9 @@ export class UsersComponent implements OnInit {
           { id: this.editingUser.id },
           this.editedUser
         )
-        .subscribe(() => this.ngOnInit());
+        .subscribe(() => {
+          this.mainService.readTableByQuery("users", {});
+        });
     } catch (error) {
       throw error;
     }
@@ -72,6 +77,7 @@ export class UsersComponent implements OnInit {
   onDeleteUser(id: number): void {
     try {
       this.mainService.deleteRecordByQuery("users", { id: id });
+      this.mainService.readTableByQuery("users", {});
     } catch (error) {
       throw error;
     }

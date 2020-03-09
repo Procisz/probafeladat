@@ -17,7 +17,9 @@ export class MainService {
   users: BehaviorSubject<User[]> = new BehaviorSubject([]);
   usersList: BehaviorSubject<User[]> = new BehaviorSubject([]);
   orders: BehaviorSubject<Order[]> = new BehaviorSubject([]);
+  searchedOrders: BehaviorSubject<Order[]> = new BehaviorSubject([]);
   ordersList: BehaviorSubject<Order[]> = new BehaviorSubject([]);
+  searchedOrderList: BehaviorSubject<Order[]> = new BehaviorSubject([]);
   products: BehaviorSubject<Product[]> = new BehaviorSubject([]);
   productsList: BehaviorSubject<Product[]> = new BehaviorSubject([]);
 
@@ -39,6 +41,7 @@ export class MainService {
           query
         )}`
       )
+      /** Get datas */
       .forEach(data => {
         if (tableName === "users" && query.hasOwnProperty("id")) {
           this.users.next(data[0]);
@@ -49,6 +52,12 @@ export class MainService {
           this.orders.next(data[0]);
         } else if (tableName === "orders") {
           this.ordersList.next(data);
+        }
+        /** Only for searching */
+        if (tableName === "orders" && query.hasOwnProperty("id")) {
+          this.searchedOrders.next(data[0]);
+        } else if (tableName === "orders") {
+          this.searchedOrderList.next(data);
         }
         if (tableName === "products" && query.hasOwnProperty("id")) {
           this.products.next(data[0]);

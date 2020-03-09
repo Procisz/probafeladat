@@ -15,7 +15,11 @@
       <td>{{ product.name }}</td>
       <td>{{ product.description }}</td>
       <td>
-        <button type="button" class="btn btn-success">
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="createOrderCode(product)"
+        >
           Megrendelés
         </button>
       </td>

@@ -45,6 +45,12 @@ module.exports = class QueryGenerator {
     if (this.whereKeys.includes("from")) {
       this.whereKeys.splice(this.whereKeys.indexOf("from"), 1);
     }
+    if (this.whereKeys.includes("where")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("where"), 1);
+    }
+    if (this.whereKeys.includes("like")) {
+      this.whereKeys.splice(this.whereKeys.indexOf("like"), 1);
+    }
     if (this.whereKeys.includes("groupBy")) {
       this.whereKeys.splice(this.whereKeys.indexOf("groupBy"), 1);
     }
@@ -75,12 +81,13 @@ module.exports = class QueryGenerator {
   }
 
   _setSelects() {
+    /** SELECT COUNT */
     if (this.query.selectCount) {
-      // console.log("Itt van.");
-      // console.log("this.query.selectCount: ", this.query.selectCount);
       this.queryString = this.queryString.concat(
         `SELECT COUNT (${this.query.selectCount}) as result`
       );
+
+      /** Simple SELECT */
     } else if (this.query.select) {
       this.queryString = this.queryString.concat(`SELECT ${this.query.select}`);
     } else {
@@ -99,6 +106,7 @@ module.exports = class QueryGenerator {
   }
 
   _setWhere() {
+    console.log("Itt járok");
     if (this.whereKeys.length > 0) {
       this.whereKeys.forEach((key, index) => {
         if (index === 0) {
@@ -114,6 +122,24 @@ module.exports = class QueryGenerator {
       } else {
         this.queryString = this.queryString.replace(/\sAND\s$/, "");
       }
+    }
+
+    /** LIKE */
+    if (this.query.where && this.query.like) {
+      console.log("this.query.where", this.query.where);
+      console.log("this.query.like", this.query.like);
+      this.queryString = this.queryString.concat(
+        ` WHERE ${this.query.where} LIKE '%${this.query.like}%'`
+      );
+    }
+
+    /** BETWEEN */
+    if (this.query.betweenColumn && this.query.betweenValues) {
+      this.queryString = this.queryString.concat(
+        ` ${this.query.betweenColumn} BETWEEN ${this.query.betweenValues}`
+      );
+    } else {
+      this.queryString = this.queryString.replace(/\sAND\s$/, "");
     }
   }
 
