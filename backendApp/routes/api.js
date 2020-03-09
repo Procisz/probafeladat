@@ -36,13 +36,6 @@ router.get("/:table", async (req, res) => {
   // console.log("req.query: ", req.query);
 });
 
-/** Gets a specific product from the database, based on seo property. */
-router.get("/:table/:seo", async (req, res) => {
-  const result = await database.readRecord(req.params.table, {
-    seo: req.params.seo
-  });
-  res.json(result[0]);
-});
 
 /** PUT requests at http://localhost:3000/tablename */
 router.put("/:table", async (req, res) => {
