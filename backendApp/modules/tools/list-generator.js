@@ -9,7 +9,7 @@ module.exports = class ListGenerator {
    * @returns {string} A MySQL list of the field names
    */
   getFieldNames(data) {
-    this._generateFieldNames(data);
+    this.generateFieldNames(data);
     return this.list;
   }
 
@@ -19,13 +19,13 @@ module.exports = class ListGenerator {
    * @returns {string} A MySQL list of the field values
    */
   getFieldValues(data) {
-    this._generateFieldValues(data);
+    this.generateFieldValues(data);
     return this.list;
   }
 
-  _generateFieldNames(data) {
-    this._emptyList();
-    this._initData(data);
+  generateFieldNames(data) {
+    this.emptyList();
+    this.initData(data);
     this.dataKeys.forEach(key => {
       if (key !== "id" && key !== "insdate") {
         if (this.list !== "") {
@@ -36,9 +36,9 @@ module.exports = class ListGenerator {
     });
   }
 
-  _generateFieldValues(data) {
-    this._emptyList();
-    this._initData(data);
+  generateFieldValues(data) {
+    this.emptyList();
+    this.initData(data);
     this.dataKeys.forEach(key => {
       if (key === "id" || key === "insdate") {
         return;
@@ -47,27 +47,26 @@ module.exports = class ListGenerator {
         if (this.list !== "") {
           this.list = this.list.concat(", ");
         }
-        // this.list = this.list.concat(`SHA1(${this._apostropheByType(key)})`);
-        this.list = this.list.concat(this._apostropheByType(key));
+        this.list = this.list.concat(this.apostropheByType(key));
       } else {
         if (this.list !== "") {
           this.list = this.list.concat(", ");
         }
-        this.list = this.list.concat(this._apostropheByType(key));
+        this.list = this.list.concat(this.apostropheByType(key));
       }
     });
   }
 
-  _initData(data) {
+  initData(data) {
     this.data = data;
     this.dataKeys = Object.keys(data);
   }
 
-  _emptyList() {
+  emptyList() {
     this.list = "";
   }
 
-  _apostropheByType(key) {
+  apostropheByType(key) {
     if (typeof this.data[key] === "string") {
       return `'${this.data[key]}'`;
     }

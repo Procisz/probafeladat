@@ -1,7 +1,6 @@
 module.exports = class WhereGenerator {
-
   constructor() {
-    this.whereString = '';
+    this.whereString = "";
   }
 
   /**
@@ -10,51 +9,51 @@ module.exports = class WhereGenerator {
    * @returns {string} A MySQL compatible "WHERE cond1=val1 AND cond2=val2" string.
    */
   getWhereString(queryObject) {
-    this._emptyPreviousQuery();
-    this._setQuery(queryObject);
-    this._setQueryKeys();
-    this._generateWhereString();
+    this.emptyPreviousQuery();
+    this.setQuery(queryObject);
+    this.setQueryKeys();
+    this.generateWhereString();
     if (this.queryKeys.length === 0) {
-      return '';
+      return "";
     }
     return this.whereString;
   }
 
-  _generateWhereString() {
+  generateWhereString() {
     this.queryKeys.forEach((key, index) => {
       if (index !== 0) {
-        this.whereString = this.whereString
-          .concat(' AND ');
+        this.whereString = this.whereString.concat(" AND ");
       }
-      if (key === 'password' || key === 'username') {
-        this.whereString = this.whereString
-          .concat(`${key} = SHA1(${this._apostropheByType(this.query[key])})`);
+      if (key === "password" || key === "username") {
+        this.whereString = this.whereString.concat(
+          `${key} = ${this.apostropheByType(this.query[key])}`
+        );
       } else {
-        this.whereString = this.whereString
-          .concat(`${key} = ${this._apostropheByType(this.query[key])}`);
+        this.whereString = this.whereString.concat(
+          `${key} = ${this.apostropheByType(this.query[key])}`
+        );
       }
     });
   }
 
-  _emptyPreviousQuery() {
-    this.whereString = ' WHERE ';
+  emptyPreviousQuery() {
+    this.whereString = " WHERE ";
   }
 
-  _setQuery(queryObject) {
+  setQuery(queryObject) {
     this.query = queryObject;
   }
 
-  _setQueryKeys() {
+  setQueryKeys() {
     this.queryKeys = Object.keys(this.query);
   }
 
-  _apostropheByType(value) {
-    if (typeof value === 'string') {
+  apostropheByType(value) {
+    if (typeof value === "string") {
       return `'${value}'`;
     }
-    if (typeof value === 'number') {
+    if (typeof value === "number") {
       return `${value}`;
     }
   }
-
 };
