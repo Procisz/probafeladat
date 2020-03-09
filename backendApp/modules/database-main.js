@@ -95,22 +95,4 @@ module.exports = class BetagDB {
       throw error;
     }
   }
-
-  async checkLogin(req) {
-    try {
-      if (!req.cookies.userID) {
-        return false;
-      }
-
-      const sql = `
-            SELECT * 
-            FROM users
-            WHERE token='${req.cookies.userID}'`;
-
-      const result = await this.connection.query(sql);
-      return result[0];
-    } catch (error) {
-      throw error;
-    }
-  }
 };
