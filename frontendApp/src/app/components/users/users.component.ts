@@ -39,6 +39,7 @@ export class UsersComponent implements OnInit {
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(incomingPasswordFromInput, salt, (err, hash) => {
         if (err) throw err;
+
         /** Set password to hashed */
         this.hashedPassword = hash;
       });

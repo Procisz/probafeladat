@@ -9,16 +9,16 @@ module.exports = class SetGenerator {
    * @returns {string} A MySQL compatible SET string "field1 = value1, field2 = value2"
    */
   getSetString(data) {
-    this._generateSetString(data);
+    this.generateSetString(data);
     return this.setString;
   }
 
-  _generateSetString(data) {
-    this._emptyString();
+  generateSetString(data) {
+    this.emptyString();
     Object.keys(data).forEach((key, index) => {
       if (key !== "id" && key !== "insdate") {
         this.setString = this.setString.concat(
-          `${key}=${this._apostropheByType(data[key])}`
+          `${key}=${this.apostropheByType(data[key])}`
         );
         this.setString = this.setString.concat(", ");
       }
@@ -26,11 +26,11 @@ module.exports = class SetGenerator {
     this.setString = this.setString.replace(/,\s$/, "");
   }
 
-  _emptyString() {
+  emptyString() {
     this.setString = "";
   }
 
-  _apostropheByType(value) {
+  apostropheByType(value) {
     if (typeof value === "string") {
       return `'${value}'`;
     }

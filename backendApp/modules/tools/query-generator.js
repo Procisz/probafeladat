@@ -4,38 +4,38 @@ module.exports = class QueryGenerator {
   }
 
   getQueryString(tableName, queryObject) {
-    this._generateQueryString(tableName, queryObject);
+    this.generateQueryString(tableName, queryObject);
     return this.queryString;
   }
 
-  _generateQueryString(tableName, queryObject = {}) {
-    this._clearPreviousQuery();
-    this._setMainTable(tableName);
-    this._setQuery(queryObject);
-    this._setKeys(queryObject);
-    this._setSelects();
-    this._setFrom();
-    this._setWhere();
-    this._setGroupBy();
-    this._setHaving();
-    this._setOrderBy();
-    this._setLimit();
-    this._endQueryString();
+  generateQueryString(tableName, queryObject = {}) {
+    this.clearPreviousQuery();
+    this.setMainTable(tableName);
+    this.setQuery(queryObject);
+    this.setKeys(queryObject);
+    this.setSelects();
+    this.setFrom();
+    this.setWhere();
+    this.setGroupBy();
+    this.setHaving();
+    this.setOrderBy();
+    this.setLimit();
+    this.endQueryString();
   }
 
-  _clearPreviousQuery() {
+  clearPreviousQuery() {
     this.queryString = "";
   }
 
-  _setMainTable(tableName) {
+  setMainTable(tableName) {
     this.tableName = tableName;
   }
 
-  _setQuery(queryObject) {
+  setQuery(queryObject) {
     this.query = queryObject;
   }
 
-  _setKeys(queryObject) {
+  setKeys(queryObject) {
     this.whereKeys = Object.keys(queryObject);
     if (this.whereKeys.includes("selectCount")) {
       this.whereKeys.splice(this.whereKeys.indexOf("selectCount"), 1);
@@ -72,7 +72,7 @@ module.exports = class QueryGenerator {
     // console.log("whereKeys: ", this.whereKeys);
   }
 
-  _apostropheByType(value) {
+  apostropheByType(value) {
     if (typeof value === "string") {
       return `'${value}'`;
     } else {
@@ -80,7 +80,7 @@ module.exports = class QueryGenerator {
     }
   }
 
-  _setSelects() {
+  setSelects() {
     /** SELECT COUNT */
     if (this.query.selectCount) {
       this.queryString = this.queryString.concat(
@@ -95,7 +95,7 @@ module.exports = class QueryGenerator {
     }
   }
 
-  _setFrom() {
+  setFrom() {
     if (this.query.from) {
       this.queryString = this.queryString.concat(
         ` FROM ${this.tableName} ${this.query.from}`
@@ -105,14 +105,14 @@ module.exports = class QueryGenerator {
     }
   }
 
-  _setWhere() {
+  setWhere() {
     if (this.whereKeys.length > 0) {
       this.whereKeys.forEach((key, index) => {
         if (index === 0) {
           this.queryString = this.queryString.concat(` WHERE`);
         }
         this.queryString = this.queryString.concat(`
-          ${key} = ${this._apostropheByType(this.query[key])} AND `);
+          ${key} = ${this.apostropheByType(this.query[key])} AND `);
       });
       if (this.query.betweenColumn && this.query.betweenValues) {
         this.queryString = this.queryString.concat(
@@ -140,7 +140,7 @@ module.exports = class QueryGenerator {
     }
   }
 
-  _setGroupBy() {
+  setGroupBy() {
     if (this.query.groupBy) {
       this.queryString = this.queryString.concat(` GROUP BY
         ${this.query.groupBy}
@@ -148,7 +148,7 @@ module.exports = class QueryGenerator {
     }
   }
 
-  _setHaving() {
+  setHaving() {
     if (this.query.having) {
       this.queryString = this.queryString.concat(
         ` HAVING ${this.query.having}`
@@ -156,7 +156,7 @@ module.exports = class QueryGenerator {
     }
   }
 
-  _setOrderBy() {
+  setOrderBy() {
     if (this.query.orderBy) {
       this.queryString = this.queryString.concat(
         ` ORDER BY ${this.query.orderBy}`
@@ -164,13 +164,13 @@ module.exports = class QueryGenerator {
     }
   }
 
-  _setLimit() {
+  setLimit() {
     if (this.query.limit) {
       this.queryString = this.queryString.concat(` LIMIT ${this.query.limit}`);
     }
   }
 
-  _endQueryString() {
+  endQueryString() {
     this.queryString = this.queryString.concat(";");
   }
 };
