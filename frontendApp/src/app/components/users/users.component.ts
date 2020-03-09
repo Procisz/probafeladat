@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable, BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { User } from "src/app/classes/user";
 import { MainService } from "src/app/services/main.service";
 import { Router } from "@angular/router";
+import * as bcrypt from "bcryptjs";
 
 @Component({
   selector: "app-users",
@@ -18,6 +19,7 @@ export class UsersComponent implements OnInit {
   randomOrderCode: string = "BBBB2222";
   orderCodeFromDatabase;
   usersOrderCodeFiled;
+  hashedPassword;
 
   constructor(private mainService: MainService, private router: Router) {
     try {
@@ -25,14 +27,28 @@ export class UsersComponent implements OnInit {
     } catch (err) {
       throw err;
     }
-    this.newUser.ordercode == "CCCC3333";
   }
 
   ngOnInit(): void {}
 
+  /** Hashing Password */
+  hashingPassword(event: KeyboardEvent) {
+    let incomingPasswordFromInput = (event.target as HTMLInputElement).value;
+
+    /** Hash password */
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(incomingPasswordFromInput, salt, (err, hash) => {
+        if (err) throw err;
+        /** Set password to hashed */
+        this.hashedPassword = hash;
+      });
+    });
+  }
+
   /** Create a new user */
   onCreateUser(): void {
     try {
+      this.newUser.password = this.hashedPassword;
       // ev.preventDefault();
       this.mainService.createRecord("users", this.newUser).subscribe(() => {
         this.mainService.readTableByQuery("users", {});
@@ -48,7 +64,7 @@ export class UsersComponent implements OnInit {
       this.editingUser = new User();
       this.editedUser = new User();
       this.editingUser = user;
-      this.onUpdateUser();
+      // this.onUpdateUser();
     } catch (error) {
       error;
     }

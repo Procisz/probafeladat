@@ -10,7 +10,6 @@ module.exports = class ListGenerator {
    */
   getFieldNames(data) {
     this._generateFieldNames(data);
-    console.log("Record Names: ", this.list);
     return this.list;
   }
 
@@ -21,7 +20,6 @@ module.exports = class ListGenerator {
    */
   getFieldValues(data) {
     this._generateFieldValues(data);
-    console.log("Record Values: ", this.list);
     return this.list;
   }
 

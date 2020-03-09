@@ -106,7 +106,6 @@ module.exports = class QueryGenerator {
   }
 
   _setWhere() {
-    console.log("Itt járok");
     if (this.whereKeys.length > 0) {
       this.whereKeys.forEach((key, index) => {
         if (index === 0) {
@@ -126,8 +125,6 @@ module.exports = class QueryGenerator {
 
     /** LIKE */
     if (this.query.where && this.query.like) {
-      console.log("this.query.where", this.query.where);
-      console.log("this.query.like", this.query.like);
       this.queryString = this.queryString.concat(
         ` WHERE ${this.query.where} LIKE '%${this.query.like}%'`
       );

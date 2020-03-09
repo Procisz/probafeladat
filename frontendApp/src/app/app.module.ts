@@ -8,7 +8,6 @@ import { WelcomePageComponent } from "./components/welcome-page/welcome-page.com
 import { UsersComponent } from "./components/users/users.component";
 import { ProductsComponent } from "./components/products/products.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
-// import { StatusesComponent } from "./components/statuses/statuses.component";
 import { OrdersComponent } from "./components/orders/orders.component";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
@@ -20,7 +19,6 @@ import { FormsModule } from "@angular/forms";
     UsersComponent,
     ProductsComponent,
     NavbarComponent,
-    // StatusesComponent,
     OrdersComponent
   ],
   imports: [

@@ -93,6 +93,7 @@
                 class="form-control"
                 placeholder="Jelszó *"
                 required
+                (keyup)="hashingPassword($event)"
               />
             </div>
             <div class="form-group col-md-6">
@@ -102,7 +103,6 @@
                 placeholder="Jelszó még egyszer *"
                 name="password"
                 required
-                [(ngModel)]="newUser.password"
               />
             </div>
           </div>
